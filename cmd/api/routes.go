@@ -25,7 +25,8 @@ func (app *application) routes() *httprouter.Router {
 			 }'
 	*/
 	router.HandlerFunc(http.MethodPost, "/v1/movies", app.createMovieHandler)
-	// curl -i localhost:4000/v1/movies/123
+
+	// curl -i localhost:4000/v1/movies/1
 	router.HandlerFunc(http.MethodGet, "/v1/movies/:id", app.showMovieHandler)
 
 	router.NotFound = http.HandlerFunc(app.notFoundResponse)
