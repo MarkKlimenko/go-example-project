@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-func (app *application) routes() *httprouter.Router {
+func (app *application) routes() http.Handler {
 	router := httprouter.New()
 
 	// curl -i localhost:4000/v1/healthcheck
@@ -42,6 +42,9 @@ func (app *application) routes() *httprouter.Router {
 
 		xargs -I % -P8 curl -X PATCH -d '{"runtime": "97 mins"}' "localhost:4000/v1/movies/4" < <(printf '%s\n' {1..8})
 
+		OR
+
+		for i in {1..6}; do curl http://localhost:4000/v1/healthcheck; done
 	*/
 	router.HandlerFunc(http.MethodPatch, "/v1/movies/:id", app.updateMovieHandler)
 
@@ -54,5 +57,5 @@ func (app *application) routes() *httprouter.Router {
 	router.NotFound = http.HandlerFunc(app.notFoundResponse)
 	router.MethodNotAllowed = http.HandlerFunc(app.methodNotAllowedResponse)
 
-	return router
+	return app.recoverPanic(app.rateLimit(router))
 }

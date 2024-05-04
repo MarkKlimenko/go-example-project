@@ -7,4 +7,5 @@ require (
 
 	// go get github.com/lib/pq@v1
 	github.com/lib/pq v1.10.9 // indirect
+	golang.org/x/time v0.5.0 // indirect
 )
