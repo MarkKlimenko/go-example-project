@@ -48,6 +48,9 @@ func (app *application) routes() *httprouter.Router {
 	// curl -i localhost:4000/v1/movies/1
 	router.HandlerFunc(http.MethodGet, "/v1/movies/:id", app.showMovieHandler)
 
+	// curl "localhost:4000/v1/movies?title=godfather&genres=crime,drama&page=1&page_size=5&sort=year"
+	router.HandlerFunc(http.MethodGet, "/v1/movies", app.listMoviesHandler)
+
 	router.NotFound = http.HandlerFunc(app.notFoundResponse)
 	router.MethodNotAllowed = http.HandlerFunc(app.methodNotAllowedResponse)
 
