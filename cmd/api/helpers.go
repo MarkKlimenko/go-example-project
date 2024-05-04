@@ -34,7 +34,7 @@ func (app *application) writeJsonWithParameters(w http.ResponseWriter, status in
 	response, err := json.Marshal(data)
 	//response, err := json.MarshalIndent(data, "", "\t")
 	if err != nil {
-		app.logger.Print(err)
+		app.logger.PrintError(err, nil)
 		http.Error(w, "The server encountered a problem and could not process your request", http.StatusInternalServerError)
 		return errors.New("invalid id parameter")
 	}
