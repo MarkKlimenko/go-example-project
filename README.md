@@ -1,6 +1,7 @@
 # go-example-project
 
 ## Create DB
+
 ```shell
 docker run --name go-example-postgres -p 5432:5432 -e POSTGRES_PASSWORD=postgres -d postgres:15.2
 
@@ -25,18 +26,36 @@ CREATE EXTENSION IF NOT EXISTS citext;
 ```
 
 ## Setup Db
+
 ```shell
 psql -U postgres -c 'SHOW config_file;'
 ```
 
 ## Connect Db
+
 ```
 postgres://greenlight:password@localhost/greenlight?sslmode=disable
 ```
 
 ## Migrate
+
 ```shell
 migrate -path=./migrations -database="postgres://greenlight:password@localhost/greenlight?sslmode=disable" up
 ```
+
+## Start application
+
+```shell
+go run ./cmd/api    
+```
+
+## Stop application
+
+```shell
+pgrep -l api
+pkill -SIGKILL api
+pkill -SIGTERM api
+```
+
 
 
